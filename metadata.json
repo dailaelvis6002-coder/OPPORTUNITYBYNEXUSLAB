@@ -1,0 +1,6 @@
+{
+  "name": "OpportunitybyNexusLab",
+  "description": "Educational opportunities and scholarship catalog platform by Nexus Lab.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
