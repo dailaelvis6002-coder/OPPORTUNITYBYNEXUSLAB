@@ -341,7 +341,6 @@ export const ScholarshipsPage: React.FC<ScholarshipsPageProps> = ({
               onHover={onHoverScholarship}
               isSaved={savedIds.includes(scholarship.id)}
               onToggleSave={onToggleSave}
-              showThumbnail={scholarship.itemNumber <= 4 || scholarship.itemNumber === 28 || scholarship.itemNumber === 38}
               featured={scholarship.itemNumber === 1 || scholarship.itemNumber === 2}
             />
           ))}

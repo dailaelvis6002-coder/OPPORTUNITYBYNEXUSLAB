@@ -12,7 +12,6 @@ import { InspectorPane } from './components/InspectorPane';
 import { OpportunityModal } from './components/OpportunityModal';
 import { BookmarksModal } from './components/BookmarksModal';
 import { QuickSearchModal } from './components/QuickSearchModal';
-import { MemberCardModal } from './components/MemberCardModal';
 import { NexusLabLogo } from './components/NexusLabLogo';
 
 import { HomePage } from './pages/HomePage';
@@ -26,9 +25,7 @@ import {
   X, 
   Search, 
   Bookmark, 
-  MessageCircle, 
-  ArrowUpRight,
-  Award
+  MessageCircle
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 
@@ -41,7 +38,6 @@ export default function App() {
   const [savedIds, setSavedIds] = useState<string[]>([]);
   const [isBookmarksOpen, setIsBookmarksOpen] = useState(false);
   const [isQuickSearchOpen, setIsQuickSearchOpen] = useState(false);
-  const [isMemberCardOpen, setIsMemberCardOpen] = useState(false);
   const [searchPrefill, setSearchPrefill] = useState('');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -185,20 +181,6 @@ export default function App() {
               </button>
             ))}
 
-            <button
-              onClick={() => {
-                setIsMemberCardOpen(true);
-                setMobileMenuOpen(false);
-              }}
-              className="w-full text-left py-2.5 px-3 bg-white border border-[#E6DFD3] text-[#D92626] font-bold flex items-center justify-between cursor-pointer shadow-xs"
-            >
-              <span className="flex items-center gap-2">
-                <Award className="w-4 h-4 text-[#D92626]" />
-                <span>Carte de Membre Albi-Alès</span>
-              </span>
-              <span>→</span>
-            </button>
-
             <div className="pt-3 border-t border-[#E6DFD3]">
               <a
                 href={siteConfig.whatsappChannelUrl}
@@ -224,7 +206,6 @@ export default function App() {
           savedCount={savedIds.length}
           onOpenSaved={() => setIsBookmarksOpen(true)}
           onOpenQuickSearch={() => setIsQuickSearchOpen(true)}
-          onOpenMemberCard={() => setIsMemberCardOpen(true)}
         />
 
         {/* 2. Center Content Area (Scrollable with Cormorant Garamond & Plus Jakarta Sans) */}
@@ -244,15 +225,6 @@ export default function App() {
                   {item.label}
                 </button>
               ))}
-
-              <button
-                onClick={() => setIsMemberCardOpen(true)}
-                className="flex items-center gap-1.5 px-2.5 py-1 bg-white border border-[#E6DFD3] hover:border-[#D92626] text-[#D92626] font-code text-[11px] font-bold rounded-xs transition-colors cursor-pointer shadow-xs"
-                title="Consulter la carte officielle des programmes Albi et Alès"
-              >
-                <Award className="w-3.5 h-3.5 text-[#D92626]" />
-                <span>Carte de Membre Albi-Alès</span>
-              </button>
             </div>
 
             <div className="flex items-center gap-4 text-[11px]">
@@ -281,7 +253,6 @@ export default function App() {
                   savedIds={savedIds}
                   onToggleSave={handleToggleSave}
                   onSearchQuery={handleSearchFromHome}
-                  onOpenMemberCard={() => setIsMemberCardOpen(true)}
                 />
               </motion.div>
             )}
@@ -385,12 +356,6 @@ export default function App() {
         isOpen={isQuickSearchOpen}
         onClose={() => setIsQuickSearchOpen(false)}
         onSelectScholarship={handleSelectScholarship}
-      />
-
-      {/* Official African Scholar Member Card Modal (Albi & Alès Program) */}
-      <MemberCardModal
-        isOpen={isMemberCardOpen}
-        onClose={() => setIsMemberCardOpen(false)}
       />
 
       {/* Monospace Footer matching Warm Beige Theme */}

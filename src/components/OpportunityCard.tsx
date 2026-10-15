@@ -1,14 +1,10 @@
 import React from 'react';
 import { ScholarshipRecord } from '../types';
-import { getOpportunityImage } from '../data/images';
 import { 
   Bookmark, 
   ArrowRight, 
-  MapPin, 
   Heart, 
   ShieldCheck, 
-  Sparkles, 
-  ExternalLink,
   GraduationCap
 } from 'lucide-react';
 import { motion } from 'motion/react';
@@ -19,8 +15,8 @@ interface OpportunityCardProps {
   onHover?: (scholarship: ScholarshipRecord) => void;
   isSaved?: boolean;
   onToggleSave?: (id: string) => void;
-  showThumbnail?: boolean;
   featured?: boolean;
+  showThumbnail?: boolean;
 }
 
 export const OpportunityCard: React.FC<OpportunityCardProps> = ({
@@ -29,14 +25,8 @@ export const OpportunityCard: React.FC<OpportunityCardProps> = ({
   onHover,
   isSaved = false,
   onToggleSave,
-  showThumbnail = false,
   featured = false
 }) => {
-  const isFullyFunded = scholarship.fundingClassification === 'Fully funded';
-  const photo = showThumbnail || featured 
-    ? getOpportunityImage(scholarship.itemNumber, scholarship.provider) 
-    : null;
-
   return (
     <motion.article
       initial={{ opacity: 0, y: 8 }}
@@ -90,23 +80,6 @@ export const OpportunityCard: React.FC<OpportunityCardProps> = ({
             </button>
           )}
         </div>
-
-        {/* Featured Photo Thumbnail for Pan-African / Key Flagships */}
-        {photo && (
-          <div className="relative w-full h-40 overflow-hidden border border-[#E6DFD3] bg-[#F3EFE6]">
-            <img
-              src={photo.url}
-              alt={photo.alt}
-              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-              loading="lazy"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-            <div className="absolute bottom-2 left-2 right-2 flex items-center justify-between font-code text-[9px] uppercase tracking-wider text-white">
-              <span className="bg-[#D92626] px-1.5 py-0.5 font-bold shadow-xs">{photo.tag}</span>
-              <span className="text-white font-medium drop-shadow-xs">{scholarship.country}</span>
-            </div>
-          </div>
-        )}
 
         {/* Title in Cormorant Garamond */}
         <h3 className="font-editorial text-2xl sm:text-[26px] font-semibold text-[#161412] group-hover:text-[#D92626] transition-colors leading-[1.15]">

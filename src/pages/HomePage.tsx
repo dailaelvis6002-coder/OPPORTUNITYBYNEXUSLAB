@@ -2,25 +2,19 @@ import React, { useState } from 'react';
 import { ScholarshipRecord, PageId } from '../types';
 import { SCHOLARSHIPS_CATALOGUE } from '../data/scholarshipsCatalogue';
 import { siteConfig } from '../data/config';
-import { CURATED_IMAGES } from '../data/images';
+import { SECTION_IMAGES } from '../data/images';
 import { OpportunityCard } from '../components/OpportunityCard';
 import { 
   Search, 
   ArrowRight, 
   ShieldCheck, 
-  GraduationCap, 
   Heart, 
-  BookOpen, 
   MessageCircle, 
   ArrowUpRight,
-  Sparkles,
   Award,
-  CheckCircle2,
-  HelpCircle,
   FileText,
   Compass
 } from 'lucide-react';
-import { motion } from 'motion/react';
 
 interface HomePageProps {
   onNavigate: (page: PageId) => void;
@@ -29,7 +23,6 @@ interface HomePageProps {
   savedIds: string[];
   onToggleSave: (id: string) => void;
   onSearchQuery: (query: string) => void;
-  onOpenMemberCard?: () => void;
 }
 
 export const HomePage: React.FC<HomePageProps> = ({
@@ -38,8 +31,7 @@ export const HomePage: React.FC<HomePageProps> = ({
   onHoverScholarship,
   savedIds,
   onToggleSave,
-  onSearchQuery,
-  onOpenMemberCard
+  onSearchQuery
 }) => {
   const [searchInput, setSearchInput] = useState('');
 
@@ -53,7 +45,7 @@ export const HomePage: React.FC<HomePageProps> = ({
     }
   };
 
-  // 1. Pan-African Flagships (ALU, Ashesi, Mastercard Foundation) - Exclusively African Scholars
+  // Pan-African Flagships (ALU, Ashesi, Mastercard Foundation)
   const panAfricanPriority = SCHOLARSHIPS_CATALOGUE.filter((s) => 
     [1, 2, 4, 28].includes(s.itemNumber)
   );
@@ -134,7 +126,7 @@ export const HomePage: React.FC<HomePageProps> = ({
         </div>
       </section>
 
-      {/* 2. DEDICATED SPOTLIGHT: MASTERCARD FOUNDATION & AFRICAN SCHOLARS */}
+      {/* 2. DEDICATED SPOTLIGHT: MASTERCARD FOUNDATION & AFRICAN SCHOLARS (The 1 Prime Editorial Image for Home) */}
       <section className="relative overflow-hidden border border-[#E6DFD3] bg-gradient-to-br from-[#FFF9F5] via-white to-[#F7F3EB] p-6 sm:p-10 space-y-6 shadow-xs">
         <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8">
           <div className="space-y-3.5 max-w-xl">
@@ -162,21 +154,21 @@ export const HomePage: React.FC<HomePageProps> = ({
             </div>
           </div>
 
-          {/* Authentic African Scholars Imagery - Generated specifically for this brief */}
-          <div className="w-full lg:w-88 flex-shrink-0 space-y-2.5">
+          {/* Authentic African Scholars Imagery - 1 Prime Image for the Home Page */}
+          <div className="w-full lg:w-96 flex-shrink-0 space-y-2.5">
             <div className="relative overflow-hidden border border-[#E6DFD3] aspect-4/3 group shadow-xs">
               <img
-                src={CURATED_IMAGES.panAfricanCampus.url}
-                alt={CURATED_IMAGES.panAfricanCampus.alt}
+                src={SECTION_IMAGES.homeSpotlight.url}
+                alt={SECTION_IMAGES.homeSpotlight.alt}
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
               <div className="absolute bottom-2.5 left-3 right-3 text-left">
                 <div className="font-code text-[10px] uppercase tracking-wider text-red-300 font-bold">
-                  African Academic Leadership
+                  {SECTION_IMAGES.homeSpotlight.tag}
                 </div>
                 <div className="font-editorial text-lg text-white font-semibold drop-shadow-xs">
-                  ALU, Ashesi & Partner Universities
+                  {SECTION_IMAGES.homeSpotlight.caption}
                 </div>
               </div>
             </div>
@@ -191,81 +183,7 @@ export const HomePage: React.FC<HomePageProps> = ({
         </div>
       </section>
 
-      {/* 2B. CARTE DE MEMBRE & PROGRAMME INGÉNIERIE ALBI & ALÈS (Authentic African Scholars Only) */}
-      <section className="relative overflow-hidden border-2 border-[#D8CFBF] bg-gradient-to-br from-[#FFFDF9] via-[#FAF6EE] to-[#F3EFE6] p-6 sm:p-10 space-y-6 shadow-xs text-left">
-        <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8">
-          <div className="space-y-3.5 max-w-xl">
-            <div className="flex items-center gap-2 flex-wrap">
-              <span className="font-code text-xs uppercase tracking-wider px-2 py-0.5 bg-emerald-100 text-emerald-800 border border-emerald-300 font-bold inline-flex items-center gap-1">
-                <ShieldCheck className="w-3.5 h-3.5 text-emerald-700" />
-                Accréditation Officielle · 2026–2027
-              </span>
-              <span className="font-code text-xs uppercase tracking-wider text-[#D92626] font-bold">
-                Programme Albi & Alès
-              </span>
-            </div>
-
-            <h2 className="font-editorial text-3xl sm:text-4xl lg:text-5xl font-bold text-[#161412] leading-tight">
-              Carte de Membre Étudiant · Mobilité & Bourses d'Ingénierie
-            </h2>
-
-            <p className="text-sm text-[#524B43] leading-relaxed font-sans">
-              Plateforme d'accès direct pour les étudiants africains (Burkina Faso et continent) candidats aux programmes d'ingénieurs et échanges académiques avec les prestigieuses Écoles des Mines (IMT Mines Albi, IMT Mines Alès) et instituts polytechniques partenaires (2iE, INP-HB).
-            </p>
-
-            <div className="flex flex-wrap items-center gap-2 pt-1 font-code text-xs">
-              <span className="px-2.5 py-1 bg-white border border-[#E6DFD3] text-[#161412] font-semibold">
-                ✓ 100% Étudiants Africains
-              </span>
-              <span className="px-2.5 py-1 bg-white border border-[#E6DFD3] text-[#161412] font-semibold">
-                ✓ IMT Mines Albi & Alès
-              </span>
-              <span className="px-2.5 py-1 bg-white border border-[#E6DFD3] text-[#161412] font-semibold">
-                ✓ Procédure Directe Sans Frais
-              </span>
-            </div>
-
-            {onOpenMemberCard && (
-              <div className="pt-2">
-                <button
-                  onClick={onOpenMemberCard}
-                  className="px-6 py-3 bg-[#D92626] hover:bg-[#B91C1C] text-white font-code text-xs uppercase tracking-wider font-bold transition-colors cursor-pointer flex items-center gap-2 shadow-xs"
-                >
-                  <Award className="w-4 h-4" />
-                  <span>Consulter la Carte de Membre Officielle</span>
-                  <ArrowRight className="w-3.5 h-3.5" />
-                </button>
-              </div>
-            )}
-          </div>
-
-          {/* Genuine African Engineering Student Photo - Zero white people */}
-          <div className="w-full lg:w-88 flex-shrink-0 space-y-2.5">
-            <div className="relative overflow-hidden border border-[#D8CFBF] aspect-4/3 group shadow-xs">
-              <img
-                src={CURATED_IMAGES.africanStemEngineer.url}
-                alt={CURATED_IMAGES.africanStemEngineer.alt}
-                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
-              <div className="absolute bottom-2.5 left-3 right-3 text-left">
-                <div className="font-code text-[10px] uppercase tracking-wider text-amber-300 font-bold">
-                  Filière Ingénierie & Sciences
-                </div>
-                <div className="font-editorial text-lg text-white font-semibold drop-shadow-xs">
-                  Élève Ingénieur Africain en Laboratoire
-                </div>
-              </div>
-            </div>
-            
-            <div className="font-code text-[10px] text-center text-[#7A7167]">
-              Carte d'identité académique officielle OpportunitybyNexusLab
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* 3. PRIORITY AFRICAN UNDERGRADUATE PATHWAYS (Curated Grid with Hover Inspector) */}
+      {/* 3. PRIORITY AFRICAN UNDERGRADUATE PATHWAYS (Clean Typography & Institutional Badges, NO repeated stock photos) */}
       <section className="space-y-6 pt-4 border-t border-[#E6DFD3]">
         <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2">
           <div>
@@ -286,7 +204,7 @@ export const HomePage: React.FC<HomePageProps> = ({
           </button>
         </div>
 
-        {/* 2-column Grid with Hover Inspector */}
+        {/* 2-column Grid with Hover Inspector (Clean Typography without repeated images) */}
         <div className="grid md:grid-cols-2 gap-6 pt-2">
           {panAfricanPriority.map((scholarship) => (
             <OpportunityCard
@@ -296,7 +214,6 @@ export const HomePage: React.FC<HomePageProps> = ({
               onHover={onHoverScholarship}
               isSaved={savedIds.includes(scholarship.id)}
               onToggleSave={onToggleSave}
-              showThumbnail={true}
               featured={scholarship.itemNumber === 1}
             />
           ))}
@@ -327,7 +244,7 @@ export const HomePage: React.FC<HomePageProps> = ({
 
         <div className="grid sm:grid-cols-3 gap-6 pt-4 border-t border-[#E6DFD3] font-sans text-xs text-[#524B43]">
           <div className="p-4 bg-[#FAF7F2] border border-[#E6DFD3] space-y-2">
-            <span className="font-code text-[11px] font-bold text-amber-800 block flex items-center gap-1.5">
+            <span className="font-code text-[11px] font-bold text-amber-800 flex items-center gap-1.5">
               <FileText className="w-3.5 h-3.5" />
               01. CSS PROFILE WAIVERS
             </span>
@@ -337,7 +254,7 @@ export const HomePage: React.FC<HomePageProps> = ({
           </div>
 
           <div className="p-4 bg-[#FAF7F2] border border-[#E6DFD3] space-y-2">
-            <span className="font-code text-[11px] font-bold text-rose-800 block flex items-center gap-1.5">
+            <span className="font-code text-[11px] font-bold text-rose-800 flex items-center gap-1.5">
               <Heart className="w-3.5 h-3.5" />
               02. WOMEN IN LEADERSHIP
             </span>
@@ -347,7 +264,7 @@ export const HomePage: React.FC<HomePageProps> = ({
           </div>
 
           <div className="p-4 bg-[#FAF7F2] border border-[#E6DFD3] space-y-2">
-            <span className="font-code text-[11px] font-bold text-emerald-800 block flex items-center gap-1.5">
+            <span className="font-code text-[11px] font-bold text-emerald-800 flex items-center gap-1.5">
               <ShieldCheck className="w-3.5 h-3.5" />
               03. ZERO ADMISSIONS FEES
             </span>

@@ -1,23 +1,19 @@
 import React, { useState } from 'react';
 import { ScholarshipRecord, PageId } from '../types';
 import { siteConfig } from '../data/config';
-import { getOpportunityImage } from '../data/images';
 import { 
   ShieldCheck, 
   ExternalLink, 
   ArrowRight, 
   Bookmark, 
   Heart, 
-  Sparkles, 
-  Clock, 
   Building2, 
   MapPin, 
   GraduationCap, 
   CheckCircle2, 
   MessageCircle,
   Eye,
-  SlidersHorizontal,
-  Award
+  Calendar
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 
@@ -39,10 +35,6 @@ export const InspectorPane: React.FC<InspectorPaneProps> = ({
   onToggleSave
 }) => {
   const [viewMode, setViewMode] = useState<'record' | 'audit'>('record');
-
-  const photo = activeScholarship 
-    ? getOpportunityImage(activeScholarship.itemNumber, activeScholarship.provider)
-    : null;
 
   return (
     <aside className="w-full lg:w-[380px] xl:w-[420px] bg-[#F7F3EB] border-l border-[#E6DFD3] p-6 flex flex-col justify-between gap-6 text-left text-[#161412] flex-shrink-0 min-h-full">
@@ -128,22 +120,33 @@ export const InspectorPane: React.FC<InspectorPaneProps> = ({
                 </div>
               </div>
 
-              {/* Curated Photographic Snippet with Authentic African Scholars */}
-              {photo && (
-                <div className="relative group overflow-hidden border border-[#E6DFD3] rounded-none h-36 w-full shadow-xs">
-                  <img
-                    src={photo.url}
-                    alt={photo.alt}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                    loading="lazy"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
-                  <div className="absolute bottom-2 left-2 right-2 flex items-center justify-between font-code text-[9px] uppercase tracking-wider text-white">
-                    <span className="px-1.5 py-0.5 bg-[#D92626] font-bold">{photo.tag}</span>
-                    <span className="text-white truncate max-w-[200px] drop-shadow-xs">{activeScholarship.institution || activeScholarship.provider}</span>
+              {/* Institutional Overview Card (Pure typography & data, no random repeated stock photos) */}
+              <div className="p-3.5 bg-white border border-[#E6DFD3] space-y-2.5 shadow-xs">
+                <div className="grid grid-cols-2 gap-2 text-xs font-sans">
+                  <div className="space-y-0.5">
+                    <span className="font-code text-[10px] uppercase text-[#7A7167] block">Study Level</span>
+                    <span className="font-semibold text-[#161412] flex items-center gap-1">
+                      <GraduationCap className="w-3.5 h-3.5 text-[#D92626]" />
+                      {activeScholarship.studyLevel}
+                    </span>
+                  </div>
+                  <div className="space-y-0.5">
+                    <span className="font-code text-[10px] uppercase text-[#7A7167] block">Location</span>
+                    <span className="font-semibold text-[#161412] flex items-center gap-1">
+                      <MapPin className="w-3.5 h-3.5 text-[#D92626]" />
+                      {activeScholarship.country} ({activeScholarship.region})
+                    </span>
                   </div>
                 </div>
-              )}
+
+                <div className="pt-2 border-t border-[#E6DFD3] flex items-center justify-between font-code text-[11px]">
+                  <span className="text-[#6A635B] flex items-center gap-1">
+                    <Calendar className="w-3.5 h-3.5 text-[#7A7167]" />
+                    Cycle Deadline:
+                  </span>
+                  <span className="font-bold text-[#161412]">{activeScholarship.deadline}</span>
+                </div>
+              </div>
 
               {/* Itemized Coverage Checklist */}
               <div className="p-3.5 bg-white border border-[#E6DFD3] space-y-2 shadow-xs">

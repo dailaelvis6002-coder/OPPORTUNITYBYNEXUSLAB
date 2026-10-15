@@ -1,7 +1,7 @@
 import React from 'react';
 import { ScholarshipRecord, PageId } from '../types';
 import { SCHOLARSHIPS_CATALOGUE } from '../data/scholarshipsCatalogue';
-import { CURATED_IMAGES } from '../data/images';
+import { SECTION_IMAGES } from '../data/images';
 import { OpportunityCard } from '../components/OpportunityCard';
 import { 
   Heart, 
@@ -65,10 +65,10 @@ export const ForGirlsPage: React.FC<ForGirlsPageProps> = ({
           </p>
         </div>
 
-        <div className="w-full md:w-72 h-44 overflow-hidden border border-[#E6DFD3] flex-shrink-0 group shadow-xs">
+        <div className="w-full md:w-80 h-48 overflow-hidden border border-[#E6DFD3] flex-shrink-0 group shadow-xs">
           <img
-            src={CURATED_IMAGES.africanWomenScholar.url}
-            alt={CURATED_IMAGES.africanWomenScholar.alt}
+            src={SECTION_IMAGES.womenInStem.url}
+            alt={SECTION_IMAGES.womenInStem.alt}
             className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
           />
         </div>

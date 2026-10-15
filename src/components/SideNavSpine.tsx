@@ -8,9 +8,7 @@ import {
   BookOpen, 
   Info, 
   Search, 
-  Bookmark,
-  CreditCard,
-  Award
+  Bookmark
 } from 'lucide-react';
 
 interface SideNavSpineProps {
@@ -19,7 +17,6 @@ interface SideNavSpineProps {
   savedCount: number;
   onOpenSaved: () => void;
   onOpenQuickSearch: () => void;
-  onOpenMemberCard?: () => void;
 }
 
 export const SideNavSpine: React.FC<SideNavSpineProps> = ({
@@ -27,8 +24,7 @@ export const SideNavSpine: React.FC<SideNavSpineProps> = ({
   onNavigate,
   savedCount,
   onOpenSaved,
-  onOpenQuickSearch,
-  onOpenMemberCard
+  onOpenQuickSearch
 }) => {
   const navItems: { id: PageId; label: string; icon: any }[] = [
     { id: 'home', label: 'Home', icon: Home },
@@ -89,19 +85,6 @@ export const SideNavSpine: React.FC<SideNavSpineProps> = ({
 
       {/* Bottom Search & Bookmarks */}
       <div className="flex flex-col items-center gap-2.5 pt-4">
-        {onOpenMemberCard && (
-          <button
-            onClick={onOpenMemberCard}
-            className="p-2 text-[#D92626] hover:bg-[#EAE3D5] rounded-md transition-colors cursor-pointer relative group"
-            title="Carte de Membre Albi-Alès"
-          >
-            <Award className="w-4 h-4" />
-            <span className="absolute left-14 top-1/2 -translate-y-1/2 px-2.5 py-1 bg-[#161412] text-white text-[11px] font-code whitespace-nowrap rounded-xs opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity z-50 shadow-md">
-              Carte de Membre Albi-Alès
-            </span>
-          </button>
-        )}
-
         <button
           onClick={onOpenQuickSearch}
           className="p-2 text-[#6A635B] hover:text-[#161412] hover:bg-[#EAE3D5] rounded-md transition-colors cursor-pointer"

@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
+import { SECTION_IMAGES } from '../data/images';
 import { 
   FileText, 
   ChevronDown, 
   ChevronUp, 
   BookOpen, 
   CheckCircle2, 
-  AlertCircle 
+  AlertCircle,
+  ShieldCheck,
+  Compass
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 
@@ -84,6 +87,41 @@ export const ResourcesPage: React.FC = () => {
         <p className="text-sm text-[#524B43] max-w-2xl leading-relaxed pt-1 font-sans">
           Zero-cost administrative guides to help African applicants secure fee waivers, write essays with dignity, and request teacher recommendations without paying commercial agencies.
         </p>
+      </div>
+
+      {/* 1 Dedicated Editorial Visual for Guides & Application Preparation */}
+      <div className="relative overflow-hidden border border-[#E6DFD3] bg-gradient-to-r from-[#FAF6EE] via-white to-[#F3EFE6] p-6 sm:p-8 flex flex-col md:flex-row items-center justify-between gap-6 shadow-xs">
+        <div className="space-y-3 max-w-xl">
+          <div className="font-code text-[11px] uppercase tracking-wider text-amber-800 font-bold flex items-center gap-2">
+            <Compass className="w-4 h-4 text-amber-700" />
+            <span>Rigorous Admissions Preparation</span>
+          </div>
+          <h2 className="font-editorial text-2xl sm:text-3xl font-bold text-[#161412]">
+            Demystifying Global Admissions & Fee Waivers
+          </h2>
+          <p className="text-xs sm:text-sm text-[#524B43] leading-relaxed font-sans">
+            Navigating international application systems does not require paying millions of CFA francs to exploitative consultancies. Everything you need to craft an outstanding application is documented here step-by-step.
+          </p>
+          <div className="flex flex-wrap items-center gap-2 pt-1 font-code text-xs text-[#7A7167]">
+            <span className="px-2 py-0.5 bg-white border border-[#E6DFD3] font-semibold text-[#161412]">
+              ✓ Free CSS Waiver Paths
+            </span>
+            <span className="px-2 py-0.5 bg-white border border-[#E6DFD3] font-semibold text-[#161412]">
+              ✓ Authentic Essay Strategy
+            </span>
+            <span className="px-2 py-0.5 bg-white border border-[#E6DFD3] font-semibold text-[#161412]">
+              ✓ Counselor Letters
+            </span>
+          </div>
+        </div>
+
+        <div className="w-full md:w-80 h-48 overflow-hidden border border-[#E6DFD3] flex-shrink-0 group shadow-xs">
+          <img
+            src={SECTION_IMAGES.guidesToolkit.url}
+            alt={SECTION_IMAGES.guidesToolkit.alt}
+            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+          />
+        </div>
       </div>
 
       {/* Accordion List */}
