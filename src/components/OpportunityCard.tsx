@@ -5,7 +5,8 @@ import {
   ArrowRight, 
   Heart, 
   ShieldCheck, 
-  GraduationCap
+  MapPin,
+  Calendar
 } from 'lucide-react';
 import { motion } from 'motion/react';
 
@@ -16,7 +17,6 @@ interface OpportunityCardProps {
   isSaved?: boolean;
   onToggleSave?: (id: string) => void;
   featured?: boolean;
-  showThumbnail?: boolean;
 }
 
 export const OpportunityCard: React.FC<OpportunityCardProps> = ({
@@ -29,35 +29,43 @@ export const OpportunityCard: React.FC<OpportunityCardProps> = ({
 }) => {
   return (
     <motion.article
-      initial={{ opacity: 0, y: 8 }}
+      initial={{ opacity: 0, y: 6 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.22, ease: 'easeOut' }}
-      whileHover={{ y: -3 }}
+      transition={{ duration: 0.18, ease: 'easeOut' }}
+      whileHover={{ y: -2 }}
       onMouseEnter={() => onHover && onHover(scholarship)}
       onClick={() => onSelect(scholarship)}
-      className={`group relative p-5 bg-white hover:bg-[#FFFDFB] border transition-all duration-300 flex flex-col justify-between text-left gap-4 cursor-pointer shadow-xs hover:shadow-md ${
+      className={`group relative p-6 bg-white hover:bg-[#FFFDF9] border transition-all duration-200 flex flex-col justify-between text-left gap-5 cursor-pointer shadow-xs hover:shadow-md ${
         featured 
-          ? 'border-red-400/80 ring-1 ring-red-400/30' 
-          : 'border-[#E6DFD3] hover:border-red-500'
+          ? 'border-amber-400 ring-1 ring-amber-400/25' 
+          : 'border-[#E5DFD5] hover:border-amber-500'
       }`}
     >
-      {/* Top Tag & Actions */}
-      <div className="space-y-3">
-        <div className="flex items-center justify-between gap-2">
-          <div className="flex items-center gap-2 flex-wrap">
-            <span className="font-code text-[10px] uppercase tracking-wider px-2 py-0.5 bg-red-50 text-red-700 font-bold border border-red-200">
-              #{String(scholarship.itemNumber).padStart(2, '0')} · {scholarship.fundingClassification.toUpperCase()}
+      {/* 1. Header Metadata (Clean unboxed text, no pill-boxes) */}
+      <div className="space-y-3.5">
+        <div className="flex items-center justify-between gap-3">
+          <div className="flex items-center gap-2 flex-wrap text-xs text-[#5E5953] font-code">
+            <span className="font-bold text-[#D97706] tracking-wider">
+              #{String(scholarship.itemNumber).padStart(2, '0')}
             </span>
-
+            <span aria-hidden="true" className="text-[#C2BCB2]">·</span>
+            <span className="font-semibold text-[#0E0D11] uppercase tracking-wider text-[11px]">
+              {scholarship.fundingClassification}
+            </span>
+            
             {scholarship.girlsWomenRelevance?.isPriority && (
-              <span className="font-code text-[10px] uppercase tracking-wider text-rose-700 bg-rose-50 border border-rose-200 px-2 py-0.5 flex items-center gap-1 font-semibold">
-                <Heart className="w-2.5 h-2.5 fill-rose-600 text-rose-600 inline" />
-                For Young Women
-              </span>
+              <>
+                <span aria-hidden="true" className="text-[#C2BCB2]">·</span>
+                <span className="text-amber-800 font-semibold flex items-center gap-1 text-[11px]">
+                  <Heart className="w-3 h-3 fill-amber-500 text-amber-500 inline" />
+                  Young Women
+                </span>
+              </>
             )}
 
-            <span className="font-code text-[10px] text-emerald-700 font-medium flex items-center gap-1">
-              <ShieldCheck className="w-3.5 h-3.5" />
+            <span aria-hidden="true" className="text-[#C2BCB2]">·</span>
+            <span className="text-emerald-700 font-medium flex items-center gap-1 text-[11px]">
+              <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
               {scholarship.status}
             </span>
           </div>
@@ -68,68 +76,72 @@ export const OpportunityCard: React.FC<OpportunityCardProps> = ({
                 e.stopPropagation();
                 onToggleSave(scholarship.id);
               }}
-              className={`p-1.5 transition-colors cursor-pointer rounded-xs ${
+              className={`p-1.5 transition-colors cursor-pointer rounded-xs shrink-0 ${
                 isSaved 
-                  ? 'text-red-600 bg-red-50 border border-red-200' 
-                  : 'text-[#9E9589] hover:text-[#161412] hover:bg-[#F3EFE6]'
+                  ? 'text-amber-700 bg-amber-50 border border-amber-300' 
+                  : 'text-[#8A847C] hover:text-[#0E0D11] hover:bg-[#F3EFEA]'
               }`}
               title={isSaved ? 'Remove from saved' : 'Save opportunity'}
               aria-label={isSaved ? 'Remove from saved' : 'Save opportunity'}
             >
-              <Bookmark className={`w-3.5 h-3.5 ${isSaved ? 'fill-current' : ''}`} />
+              <Bookmark className={`w-4 h-4 ${isSaved ? 'fill-current' : ''}`} />
             </button>
           )}
         </div>
 
-        {/* Title in Cormorant Garamond */}
-        <h3 className="font-editorial text-2xl sm:text-[26px] font-semibold text-[#161412] group-hover:text-[#D92626] transition-colors leading-[1.15]">
+        {/* 2. Scholarship Name in Cormorant Garamond */}
+        <h3 className="font-editorial text-2xl sm:text-[26px] font-semibold text-[#0E0D11] group-hover:text-[#D97706] transition-colors leading-[1.2]">
           {scholarship.name}
         </h3>
 
-        {/* Provider, Host & Country */}
-        <div className="font-code text-[11px] text-[#6A635B] flex flex-wrap items-center gap-1.5 pt-0.5">
-          <span className="text-[#161412] font-semibold">{scholarship.provider}</span>
+        {/* 3. Provider, Host Institution & Country */}
+        <div className="font-sans text-xs text-[#5E5953] flex flex-wrap items-center gap-1.5 pt-0.5">
+          <span className="text-[#0E0D11] font-semibold">{scholarship.provider}</span>
           {scholarship.institution && scholarship.institution !== scholarship.provider && (
             <>
-              <span className="text-[#9E9589]">/</span>
-              <span className="text-[#6A635B]">{scholarship.institution}</span>
+              <span className="text-[#C2BCB2]">/</span>
+              <span className="text-[#5E5953]">{scholarship.institution}</span>
             </>
           )}
-          <span className="text-[#9E9589]">·</span>
-          <span className="text-red-700 font-medium">{scholarship.country}</span>
+          <span className="text-[#C2BCB2]">·</span>
+          <span className="text-[#8C5A0C] font-medium flex items-center gap-0.5">
+            <MapPin className="w-3 h-3 text-[#D97706]" />
+            {scholarship.country}
+          </span>
         </div>
 
-        {/* Brief Overview / Assessment */}
-        <p className="text-xs text-[#524B43] leading-relaxed line-clamp-2 pt-1 font-sans">
+        {/* 4. Brief Editorial Assessment */}
+        <p className="text-xs sm:text-[13px] text-[#4A4643] leading-relaxed line-clamp-2 pt-1 font-sans">
           {scholarship.editorialAssessment}
         </p>
 
-        {/* Itemized Coverage Tags */}
-        <div className="flex flex-wrap gap-1.5 pt-1">
+        {/* 5. Itemized Coverage List */}
+        <div className="flex flex-wrap gap-1.5 pt-1.5 font-sans">
           {scholarship.fundingCoverageItemized.slice(0, 3).map((item, idx) => (
             <span
               key={idx}
-              className="font-code text-[10px] px-1.5 py-0.5 bg-[#FAF7F2] border border-[#E6DFD3] text-[#524B43] truncate max-w-[200px]"
+              className="text-[11px] px-2 py-0.5 bg-[#FAF8F5] border border-[#E5DFD5] text-[#4A4643] rounded-xs"
             >
               ✓ {item}
             </span>
           ))}
           {scholarship.fundingCoverageItemized.length > 3 && (
-            <span className="font-code text-[10px] px-1.5 py-0.5 text-[#9E9589]">
+            <span className="text-[11px] px-1.5 py-0.5 text-[#8A847C] font-code">
               +{scholarship.fundingCoverageItemized.length - 3} more
             </span>
           )}
         </div>
       </div>
 
-      {/* Footer Meta & Action */}
-      <div className="pt-3 border-t border-[#E6DFD3] flex items-center justify-between gap-3 font-code text-[11px]">
-        <span className="text-[#6A635B] truncate">
-          Cycle: <strong className="text-[#161412] font-semibold">{scholarship.deadline}</strong>
+      {/* 6. Footer: Deadline & Action */}
+      <div className="pt-4 border-t border-[#E5DFD5] flex items-center justify-between gap-3 font-code text-xs">
+        <span className="text-[#5E5953] flex items-center gap-1.5 truncate">
+          <Calendar className="w-3.5 h-3.5 text-[#8A847C]" />
+          <span>Deadline: <strong className="text-[#0E0D11] font-semibold tabular-nums">{scholarship.deadline}</strong></span>
         </span>
 
-        <span className="text-[#D92626] group-hover:text-[#B91C1C] font-semibold flex items-center gap-1 group-hover:translate-x-1 transition-transform flex-shrink-0">
-          <span>Audit Sheet</span>
+        <span className="text-[#D97706] group-hover:text-[#B45309] font-bold flex items-center gap-1 group-hover:translate-x-0.5 transition-transform shrink-0">
+          <span>Audit Record</span>
           <ArrowRight className="w-3.5 h-3.5" />
         </span>
       </div>

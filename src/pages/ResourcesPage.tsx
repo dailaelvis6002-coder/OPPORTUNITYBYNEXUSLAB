@@ -7,7 +7,6 @@ import {
   BookOpen, 
   CheckCircle2, 
   AlertCircle,
-  ShieldCheck,
   Compass
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
@@ -77,79 +76,80 @@ export const ResourcesPage: React.FC = () => {
       
       {/* Header */}
       <div className="space-y-3 pt-2">
-        <div className="font-code text-xs uppercase tracking-widest text-[#D92626] flex items-center gap-2 font-bold">
+        <div className="font-code text-xs uppercase tracking-widest text-[#D97706] flex items-center gap-2 font-bold">
           <BookOpen className="w-3.5 h-3.5" />
           <span>HALI PRACTICAL APPLICATION TOOLKITS</span>
         </div>
-        <h1 className="font-editorial text-4xl sm:text-6xl font-normal italic leading-[0.95] text-[#161412] tracking-tight">
+        <h1 className="font-editorial text-4xl sm:text-6xl font-normal italic leading-[0.95] text-[#0E0D11] tracking-tight">
           Financial Aid & Application Guides
         </h1>
-        <p className="text-sm text-[#524B43] max-w-2xl leading-relaxed pt-1 font-sans">
+        <p className="text-sm text-[#4A4643] max-w-2xl leading-relaxed font-sans">
           Zero-cost administrative guides to help African applicants secure fee waivers, write essays with dignity, and request teacher recommendations without paying commercial agencies.
         </p>
       </div>
 
       {/* 1 Dedicated Editorial Visual for Guides & Application Preparation */}
-      <div className="relative overflow-hidden border border-[#E6DFD3] bg-gradient-to-r from-[#FAF6EE] via-white to-[#F3EFE6] p-6 sm:p-8 flex flex-col md:flex-row items-center justify-between gap-6 shadow-xs">
-        <div className="space-y-3 max-w-xl">
-          <div className="font-code text-[11px] uppercase tracking-wider text-amber-800 font-bold flex items-center gap-2">
-            <Compass className="w-4 h-4 text-amber-700" />
+      <div className="relative overflow-hidden border border-[#E5DFD5] bg-gradient-to-r from-[#FFFDF9] via-white to-[#F5F2EC] p-6 sm:p-8 flex flex-col md:flex-row items-center justify-between gap-8 shadow-xs">
+        <div className="space-y-3 max-w-xl font-sans">
+          <div className="font-code text-xs uppercase tracking-wider text-[#D97706] font-bold flex items-center gap-2">
+            <Compass className="w-4 h-4 text-[#D97706]" />
             <span>Rigorous Admissions Preparation</span>
           </div>
-          <h2 className="font-editorial text-2xl sm:text-3xl font-bold text-[#161412]">
+          <h2 className="font-editorial text-2xl sm:text-3xl font-bold text-[#0E0D11]">
             Demystifying Global Admissions & Fee Waivers
           </h2>
-          <p className="text-xs sm:text-sm text-[#524B43] leading-relaxed font-sans">
+          <p className="text-xs sm:text-sm text-[#4A4643] leading-relaxed">
             Navigating international application systems does not require paying millions of CFA francs to exploitative consultancies. Everything you need to craft an outstanding application is documented here step-by-step.
           </p>
-          <div className="flex flex-wrap items-center gap-2 pt-1 font-code text-xs text-[#7A7167]">
-            <span className="px-2 py-0.5 bg-white border border-[#E6DFD3] font-semibold text-[#161412]">
+          <div className="flex flex-wrap items-center gap-2 pt-1 font-sans text-xs">
+            <span className="px-2.5 py-1 bg-amber-50 text-amber-900 border border-amber-200 font-semibold rounded-xs">
               ✓ Free CSS Waiver Paths
             </span>
-            <span className="px-2 py-0.5 bg-white border border-[#E6DFD3] font-semibold text-[#161412]">
+            <span className="px-2.5 py-1 bg-[#FAF8F5] text-[#0E0D11] border border-[#E5DFD5] font-semibold rounded-xs">
               ✓ Authentic Essay Strategy
             </span>
-            <span className="px-2 py-0.5 bg-white border border-[#E6DFD3] font-semibold text-[#161412]">
+            <span className="px-2.5 py-1 bg-[#FAF8F5] text-[#0E0D11] border border-[#E5DFD5] font-semibold rounded-xs">
               ✓ Counselor Letters
             </span>
           </div>
         </div>
 
-        <div className="w-full md:w-80 h-48 overflow-hidden border border-[#E6DFD3] flex-shrink-0 group shadow-xs">
+        <div className="w-full md:w-80 h-48 overflow-hidden border border-[#E5DFD5] shrink-0 group shadow-xs bg-[#EBE5DB]">
           <img
             src={SECTION_IMAGES.guidesToolkit.url}
             alt={SECTION_IMAGES.guidesToolkit.alt}
             className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+            referrerPolicy="no-referrer"
           />
         </div>
       </div>
 
       {/* Accordion List */}
-      <div className="space-y-3">
+      <div className="space-y-3 font-sans">
         {guides.map((guide, idx) => {
           const isOpen = openGuide === idx;
           return (
             <div
               key={idx}
-              className="border border-[#E6DFD3] bg-white transition-all shadow-xs"
+              className="border border-[#E5DFD5] bg-white transition-all shadow-xs"
             >
               <button
                 onClick={() => setOpenGuide(isOpen ? null : idx)}
-                className="w-full p-6 text-left flex items-start justify-between gap-4 cursor-pointer hover:bg-[#FAF7F2] transition-colors"
+                className="w-full p-6 text-left flex items-start justify-between gap-4 cursor-pointer hover:bg-[#FAF8F5] transition-colors"
               >
                 <div className="space-y-1.5 pr-2">
-                  <div className="font-code text-[11px] font-bold uppercase tracking-wider text-[#D92626]">
+                  <div className="font-code text-xs font-bold uppercase tracking-wider text-[#D97706]">
                     {guide.category}
                   </div>
-                  <h3 className="font-editorial text-2xl sm:text-3xl font-semibold text-[#161412]">
+                  <h3 className="font-editorial text-2xl sm:text-3xl font-semibold text-[#0E0D11]">
                     {guide.title}
                   </h3>
-                  <p className="text-xs text-[#524B43] leading-relaxed pt-0.5 font-sans">
+                  <p className="text-xs sm:text-[13px] text-[#4A4643] leading-relaxed pt-0.5">
                     {guide.summary}
                   </p>
                 </div>
 
-                <div className="p-1 rounded-sm bg-[#FAF7F2] border border-[#E6DFD3] text-[#161412] flex-shrink-0 mt-2">
+                <div className="p-1.5 rounded-xs bg-[#FAF8F5] border border-[#E5DFD5] text-[#0E0D11] shrink-0 mt-2">
                   {isOpen ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
                 </div>
               </button>
@@ -161,12 +161,12 @@ export const ResourcesPage: React.FC = () => {
                     animate={{ height: 'auto', opacity: 1 }}
                     exit={{ height: 0, opacity: 0 }}
                     transition={{ duration: 0.15 }}
-                    className="px-6 pb-6 pt-2 border-t border-[#E6DFD3] bg-[#FAF7F2] font-sans"
+                    className="px-6 pb-6 pt-2 border-t border-[#E5DFD5] bg-[#FAF8F5]"
                   >
                     <div className="space-y-3 pt-2">
                       {guide.content.map((point, pIdx) => (
-                        <div key={pIdx} className="flex items-start gap-2.5 text-xs sm:text-sm text-[#453F38]">
-                          <CheckCircle2 className="w-4 h-4 text-emerald-600 flex-shrink-0 mt-0.5" />
+                        <div key={pIdx} className="flex items-start gap-2.5 text-xs sm:text-sm text-[#4A4643]">
+                          <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
                           <span className="leading-relaxed">{point}</span>
                         </div>
                       ))}
@@ -180,13 +180,13 @@ export const ResourcesPage: React.FC = () => {
       </div>
 
       {/* Anti-fraud advisory */}
-      <div className="p-6 bg-red-50 border border-red-200 flex items-start gap-3.5 text-xs text-red-900 font-sans shadow-xs">
-        <AlertCircle className="w-5 h-5 text-[#D92626] flex-shrink-0 mt-0.5" />
+      <div className="p-6 bg-[#0E0D11] border border-[#2B2833] text-white flex items-start gap-4 text-xs font-sans shadow-xs rounded-xs">
+        <AlertCircle className="w-5 h-5 text-amber-400 shrink-0 mt-0.5" />
         <div className="space-y-1">
-          <strong className="block font-code uppercase tracking-wider text-[#D92626] text-[11px] font-bold">
+          <strong className="block font-code uppercase tracking-wider text-amber-400 text-xs font-bold">
             Anti-Fraud Advisory
           </strong>
-          <p className="leading-relaxed text-[#524B43]">
+          <p className="leading-relaxed text-[#D4D0C8]">
             Nexus Lab does not charge students. Legitimate universities and programs never demand fees for application forms or promise admissions guarantees. All resources here are 100% free.
           </p>
         </div>

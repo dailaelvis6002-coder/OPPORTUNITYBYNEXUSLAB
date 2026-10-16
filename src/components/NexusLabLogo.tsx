@@ -13,26 +13,24 @@ export const NexusLabLogo: React.FC<NexusLabLogoProps> = ({
   showWordmark = true,
   size = 'md'
 }) => {
-  // Dimensions per size
   const sizeMap = {
-    sm: { icon: 34, text: 'text-xs', sub: 'text-[9px]' },
-    md: { icon: 44, text: 'text-sm', sub: 'text-[10px]' },
-    lg: { icon: 56, text: 'text-base', sub: 'text-xs' },
-    xl: { icon: 72, text: 'text-xl', sub: 'text-sm' }
+    sm: { icon: 34, title: 'text-xs', sub: 'text-[9px]' },
+    md: { icon: 42, title: 'text-sm', sub: 'text-[10px]' },
+    lg: { icon: 54, title: 'text-base', sub: 'text-xs' },
+    xl: { icon: 70, title: 'text-xl', sub: 'text-sm' }
   };
 
   const currentSize = sizeMap[size];
-
-  // In light variant: text is dark; in dark variant: text is white
   const isLight = variant === 'light';
-  const nexusTextColor = isLight ? '#0F172A' : '#FFFFFF';
-  const subTextColor = isLight ? '#64748B' : '#94A3B8';
-  const dividerColor = isLight ? '#CBD5E1' : '#334155';
-  const atomColor = isLight ? '#DC2626' : '#EF4444';
+  const nexusTextColor = isLight ? '#0E0D11' : '#FFFFFF';
+  const subTextColor = isLight ? '#716D66' : '#A19C93';
+  const goldPrimary = '#D97706'; // Rich Golden Yellow
+  const goldBright = '#F59E0B'; // Vibrant Gold
+  const goldLight = '#FBBF24'; // Star / Accent Gold
 
   return (
     <div className={`inline-flex items-center gap-3 select-none ${className}`}>
-      {/* Official Emblem Mark: NL with Mentorship Silhouette & Orbiting Star */}
+      {/* Official Nexus Lab Monogram Emblem: NL with Graduate Scholar, Open Book & Orbiting Star */}
       <svg
         width={currentSize.icon}
         height={currentSize.icon}
@@ -41,99 +39,158 @@ export const NexusLabLogo: React.FC<NexusLabLogoProps> = ({
         xmlns="http://www.w3.org/2000/svg"
         className="flex-shrink-0 transition-transform duration-300 hover:scale-105"
         role="img"
-        aria-label="Nexus Lab Logo Emblem"
+        aria-label="Nexus Lab Official Emblem"
       >
         <defs>
-          <linearGradient id="nlRedGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#EF4444" />
-            <stop offset="60%" stopColor="#DC2626" />
-            <stop offset="100%" stopColor="#991B1B" />
+          {/* Refined Gold Gradient */}
+          <linearGradient id="nlGoldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#F59E0B" />
+            <stop offset="50%" stopColor="#E5A910" />
+            <stop offset="100%" stopColor="#D97706" />
           </linearGradient>
+
+          {/* Clean White Gradient */}
           <linearGradient id="nlWhiteGrad" x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%" stopColor="#FFFFFF" />
-            <stop offset="100%" stopColor="#E2E8F0" />
+            <stop offset="100%" stopColor="#EDE9E3" />
           </linearGradient>
-          <filter id="nlGlow" x="-20%" y="-20%" width="140%" height="140%">
+
+          {/* Star Glow */}
+          <filter id="goldStarGlow" x="-30%" y="-30%" width="160%" height="160%">
             <feGaussianBlur stdDeviation="2" result="blur" />
             <feComposite in="SourceGraphic" in2="blur" operator="over" />
           </filter>
         </defs>
 
-        {/* Outer Dark Shield / Soft Glow for contrast */}
-        <rect width="120" height="120" rx="24" fill="#0A0A0C" />
+        {/* Deep Obsidian Background Badge */}
+        <rect width="120" height="120" rx="22" fill="#0A0A0C" />
 
-        {/* Shooting trajectory arc with star at apex */}
+        {/* 1. Golden Shooting Star Arc */}
         <path
-          d="M 45 65 Q 65 30 78 20"
-          stroke="#EF4444"
-          strokeWidth="1.8"
+          d="M 28 62 C 45 28, 70 20, 86 16"
+          stroke={goldBright}
+          strokeWidth="2.2"
           strokeLinecap="round"
-          strokeDasharray="2 1"
-          opacity="0.85"
-        />
-        {/* Guiding Star */}
-        <path
-          d="M 78 20 L 80 14 L 82 20 L 88 22 L 82 24 L 80 30 L 78 24 L 72 22 Z"
-          fill="#DC2626"
-          filter="url(#nlGlow)"
-        />
-        <circle cx="80" cy="22" r="1.5" fill="#FFFFFF" />
-
-        {/* Dynamic Architectural 'N' in Crimson */}
-        <path
-          d="M 28 85 L 28 32 L 40 24 L 72 70 L 72 85 L 60 85 L 40 54 L 40 85 Z"
-          fill="url(#nlRedGrad)"
+          fill="none"
         />
 
-        {/* Silhouettes: Mentor & Child pointing toward the star */}
-        <g fill="#0A0A0C">
-          {/* Adult / Mentor silhouette */}
-          <circle cx="37" cy="48" r="3.2" />
-          <path d="M 34 52 L 39 52 L 42 66 L 39 84 L 37 84 L 35 68 L 33 84 L 31 84 L 33 60 Z" />
-          {/* Mentor Raised Arm Pointing up */}
-          <path d="M 37 54 L 45 42 L 46 43 L 39 56 Z" />
-
-          {/* Child silhouette holding mentor hand */}
-          <circle cx="45" cy="62" r="2.2" />
-          <path d="M 43 65 L 48 65 L 49 76 L 47 84 L 45 84 L 44 75 L 42 84 L 40 84 L 42 70 Z" />
+        {/* 2. Four-Point Shining Star at Apex */}
+        <g filter="url(#goldStarGlow)">
+          <path
+            d="M 86 16 L 89 7 L 92 16 L 101 19 L 92 22 L 89 31 L 86 22 L 77 19 Z"
+            fill={goldLight}
+          />
         </g>
+        <circle cx="89" cy="19" r="1.8" fill="#FFFFFF" />
 
-        {/* Dynamic Overlapping 'L' in Polished White */}
+        {/* 3. Letter 'N' - Left White Vertical Bar & Gold Inner Diagonal */}
+        {/* Left vertical pillar */}
         <path
-          d="M 68 85 L 68 32 L 80 32 L 80 73 L 102 73 L 96 85 Z"
+          d="M 22 36 L 33 36 L 33 80 L 22 80 Z"
           fill="url(#nlWhiteGrad)"
         />
+        {/* Top-left serif angled cut */}
+        <path
+          d="M 22 36 L 38 24 L 38 36 Z"
+          fill="url(#nlWhiteGrad)"
+        />
+        {/* Gold inner diagonal facet */}
+        <path
+          d="M 33 42 L 54 66 L 47 73 L 33 55 Z"
+          fill="url(#nlGoldGrad)"
+        />
+
+        {/* 4. Letter 'L' - Architectural Right Column & Base */}
+        {/* Gold inner perspective facet */}
+        <path
+          d="M 67 36 L 75 30 L 75 78 L 67 78 Z"
+          fill="url(#nlGoldGrad)"
+        />
+        {/* White outer 'L' structure */}
+        <path
+          d="M 75 30 L 87 22 L 87 75 L 100 75 L 100 83 L 75 83 Z"
+          fill="url(#nlWhiteGrad)"
+        />
+
+        {/* 5. Center Scholar with Graduation Cap & Backpack */}
+        <g fill="#FFFFFF">
+          {/* Graduate Head */}
+          <circle cx="56" cy="50" r="4.2" />
+          
+          {/* Golden Mortarboard (Graduation Cap) */}
+          <polygon
+            points="56,41 64,45 56,49 48,45"
+            fill={goldBright}
+          />
+          {/* Mortarboard Tassel */}
+          <path
+            d="M 50 46 L 48 51 L 46 51"
+            stroke={goldBright}
+            strokeWidth="1.2"
+            fill="none"
+          />
+
+          {/* Student Torso & Body */}
+          <path
+            d="M 53 54 C 53 54, 57 54, 58 55 C 60 57, 60 66, 61 74 L 57 74 L 56 65 L 53 74 L 49 74 C 50 67, 51 58, 53 54 Z"
+          />
+
+          {/* Golden Backpack */}
+          <rect
+            x="46"
+            y="55"
+            width="5"
+            height="8"
+            rx="2.5"
+            fill={goldBright}
+          />
+        </g>
+
+        {/* 6. Open Book at Base (Curved Pages) */}
+        {/* Upper White Pages */}
+        <path
+          d="M 12 79 C 28 72, 45 74, 56 82 C 67 74, 84 72, 100 79 C 84 74, 67 76, 56 85 C 45 76, 28 74, 12 79 Z"
+          fill="url(#nlWhiteGrad)"
+        />
+        {/* Lower Golden Horizon Page Arc */}
+        <path
+          d="M 16 83 C 30 78, 45 80, 56 87 C 67 80, 82 78, 96 83 C 82 80, 67 82, 56 89 C 45 82, 30 80, 16 83 Z"
+          fill="url(#nlGoldGrad)"
+        />
+
+        {/* 7. Bottom Atomic Orbit Emblem in Gold */}
+        <g stroke={goldBright} strokeWidth="1.2" fill="none">
+          <circle cx="56" cy="104" r="1.8" fill={goldBright} />
+          <ellipse cx="56" cy="104" rx="8" ry="3.5" transform="rotate(30 56 104)" />
+          <ellipse cx="56" cy="104" rx="8" ry="3.5" transform="rotate(-30 56 104)" />
+          {/* Flanking golden divider lines */}
+          <line x1="20" y1="104" x2="44" y2="104" strokeWidth="1" opacity="0.8" />
+          <line x1="68" y1="104" x2="92" y2="104" strokeWidth="1" opacity="0.8" />
+        </g>
       </svg>
 
-      {/* Official Typography & Wordmark */}
+      {/* Official Wordmark */}
       {showWordmark && (
-        <div className="flex flex-col">
-          <div className="flex items-center tracking-[0.22em] font-extrabold uppercase leading-none">
+        <div className="flex flex-col text-left">
+          <div className="flex items-center tracking-[0.24em] font-extrabold uppercase leading-none">
             <span style={{ color: nexusTextColor }} className="text-sm sm:text-base font-black">
               NEXUS
             </span>
-            <span className="text-red-600 text-sm sm:text-base font-black ml-1.5">
+            <span style={{ color: goldPrimary }} className="text-sm sm:text-base font-black ml-1.5">
               LAB
             </span>
           </div>
-          
-          {/* Atomic Orbit Sub-divider */}
-          <div className="flex items-center gap-1.5 mt-1">
-            <span className="h-[1px] w-5" style={{ backgroundColor: dividerColor }} />
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke={atomColor} strokeWidth="2">
-              <circle cx="12" cy="12" r="2.5" fill={atomColor} />
-              <ellipse cx="12" cy="12" rx="9" ry="4" transform="rotate(30 12 12)" />
-              <ellipse cx="12" cy="12" rx="9" ry="4" transform="rotate(-30 12 12)" />
-            </svg>
-            <span className="h-[1px] w-5" style={{ backgroundColor: dividerColor }} />
-          </div>
 
-          <span 
-            className="text-[9px] tracking-[0.14em] uppercase font-semibold mt-0.5"
-            style={{ color: subTextColor }}
-          >
-            Opportunity
-          </span>
+          <div className="flex items-center gap-1.5 mt-1">
+            <span className="h-[1px] w-4" style={{ backgroundColor: isLight ? '#E5DFD5' : '#333139' }} />
+            <span 
+              className="text-[9px] tracking-[0.16em] uppercase font-bold"
+              style={{ color: isLight ? '#8C5A0C' : '#F59E0B' }}
+            >
+              OPPORTUNITY
+            </span>
+            <span className="h-[1px] w-4" style={{ backgroundColor: isLight ? '#E5DFD5' : '#333139' }} />
+          </div>
         </div>
       )}
     </div>

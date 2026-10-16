@@ -35,13 +35,14 @@ export const SideNavSpine: React.FC<SideNavSpineProps> = ({
   ];
 
   return (
-    <aside className="hidden lg:flex w-20 flex-col items-center justify-between py-6 border-r border-[#E6DFD3] bg-[#F3EFE6] text-[#161412] flex-shrink-0 select-none z-30">
+    <aside className="hidden lg:flex w-20 flex-col items-center justify-between py-6 border-r border-[#E5DFD5] bg-[#F7F4EE] text-[#0E0D11] flex-shrink-0 select-none z-30">
       
       {/* Top Brand Mark */}
       <button
         onClick={() => onNavigate('home')}
-        className="focus:outline-hidden hover:opacity-80 transition-opacity cursor-pointer p-1"
+        className="focus:outline-hidden hover:opacity-85 transition-opacity cursor-pointer p-1"
         title="OpportunitybyNexusLab"
+        aria-label="OpportunitybyNexusLab Home"
       >
         <NexusLabLogo variant="light" size="sm" showWordmark={false} />
       </button>
@@ -58,16 +59,17 @@ export const SideNavSpine: React.FC<SideNavSpineProps> = ({
               <button
                 key={item.id}
                 onClick={() => onNavigate(item.id)}
-                className={`p-2.5 rounded-md transition-all cursor-pointer relative group ${
+                className={`p-2.5 rounded-xs transition-all cursor-pointer relative group ${
                   isActive
-                    ? 'bg-[#D92626] text-white shadow-md shadow-red-600/20'
-                    : 'text-[#6A635B] hover:text-[#161412] hover:bg-[#EAE3D5]'
+                    ? 'bg-[#0E0D11] text-[#F59E0B] shadow-sm'
+                    : 'text-[#716D66] hover:text-[#0E0D11] hover:bg-[#EBE5DB]'
                 }`}
                 title={item.label}
+                aria-label={item.label}
               >
                 <Icon className="w-4 h-4" />
                 {/* Tooltip on hover */}
-                <span className="absolute left-14 top-1/2 -translate-y-1/2 px-2.5 py-1 bg-[#161412] text-white text-[11px] font-code whitespace-nowrap rounded-xs opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity z-50 shadow-md">
+                <span className="absolute left-14 top-1/2 -translate-y-1/2 px-2.5 py-1 bg-[#0E0D11] text-white text-[11px] font-sans whitespace-nowrap rounded-xs opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity z-50 shadow-md">
                   {item.label}
                 </span>
               </button>
@@ -76,9 +78,9 @@ export const SideNavSpine: React.FC<SideNavSpineProps> = ({
         </div>
 
         {/* Vertical Rule & Spine Typography */}
-        <div className="h-10 w-[1px] bg-[#D8CFBF]" />
+        <div className="h-10 w-[1px] bg-[#D5CDC0]" />
 
-        <div className="font-code text-[10px] tracking-[0.25em] uppercase text-[#7A7167] font-semibold rotate-180 [writing-mode:vertical-rl]">
+        <div className="font-code text-[10px] tracking-[0.25em] uppercase text-[#716D66] font-semibold rotate-180 [writing-mode:vertical-rl]">
           Opportunities by Nexus Lab
         </div>
       </div>
@@ -87,26 +89,28 @@ export const SideNavSpine: React.FC<SideNavSpineProps> = ({
       <div className="flex flex-col items-center gap-2.5 pt-4">
         <button
           onClick={onOpenQuickSearch}
-          className="p-2 text-[#6A635B] hover:text-[#161412] hover:bg-[#EAE3D5] rounded-md transition-colors cursor-pointer"
+          className="p-2 text-[#716D66] hover:text-[#0E0D11] hover:bg-[#EBE5DB] rounded-xs transition-colors cursor-pointer"
           title="Search Catalogue (Ctrl + K)"
+          aria-label="Search Catalogue"
         >
           <Search className="w-4 h-4" />
         </button>
 
         <button
           onClick={onOpenSaved}
-          className="relative p-2 text-[#6A635B] hover:text-[#161412] hover:bg-[#EAE3D5] rounded-md transition-colors cursor-pointer"
+          className="relative p-2 text-[#716D66] hover:text-[#0E0D11] hover:bg-[#EBE5DB] rounded-xs transition-colors cursor-pointer"
           title="Saved Opportunities"
+          aria-label="Saved Opportunities"
         >
           <Bookmark className="w-4 h-4" />
           {savedCount > 0 && (
-            <span className="absolute -top-1 -right-1 w-4 h-4 bg-[#D92626] text-white text-[9px] font-bold rounded-full flex items-center justify-center font-code shadow-xs">
+            <span className="absolute -top-1 -right-1 w-4 h-4 bg-[#D97706] text-white text-[9px] font-bold rounded-full flex items-center justify-center font-code shadow-xs tabular-nums">
               {savedCount}
             </span>
           )}
         </button>
 
-        <div className="font-code text-[10px] text-[#D92626] font-bold mt-1">
+        <div className="font-code text-[10px] text-[#D97706] font-bold mt-1 tabular-nums">
           2026
         </div>
       </div>

@@ -10,20 +10,17 @@ import { OpportunityCard } from '../components/OpportunityCard';
 import { 
   Search, 
   RotateCcw, 
-  GraduationCap, 
   Filter, 
   X, 
-  ArrowUpDown, 
   Heart, 
   ShieldCheck,
   LayoutGrid,
-  ListFilter,
   Table,
   Globe2,
-  ExternalLink,
   Bookmark,
-  Sparkles,
-  ArrowRight
+  Calendar,
+  Eye,
+  MapPin
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 
@@ -50,7 +47,6 @@ export const ScholarshipsPage: React.FC<ScholarshipsPageProps> = ({
   const [onlyAfricanPriority, setOnlyAfricanPriority] = useState<boolean>(false);
   const [sortBy, setSortBy] = useState<'number' | 'alpha' | 'region'>('number');
   const [viewMode, setViewMode] = useState<'dossier' | 'ledger' | 'regional'>('dossier');
-  const [showMobileFilters, setShowMobileFilters] = useState(false);
 
   // Filter & Search Logic across all 65 audited records
   const filteredScholarships = useMemo(() => {
@@ -127,20 +123,19 @@ export const ScholarshipsPage: React.FC<ScholarshipsPageProps> = ({
   return (
     <div className="space-y-8 pb-16 text-left">
       
-      {/* 1. Header Section matching warm beige theme */}
-      <div className="space-y-3 pt-2">
+      {/* 1. Header Section */}
+      <div className="space-y-4 pt-2">
         <div className="flex items-center justify-between gap-4 flex-wrap">
-          <div className="font-code text-xs uppercase tracking-widest text-[#D92626] flex items-center gap-2 font-bold">
-            <span className="w-2 h-2 rounded-full bg-[#D92626] animate-pulse" />
-            <span>EXHAUSTIVE RECORD REGISTRY (65 TOTAL AUDITED)</span>
+          <div className="font-code text-xs uppercase tracking-widest text-[#D97706] flex items-center gap-2 font-bold">
+            <span>EXHAUSTIVE RECORD REGISTRY · 65 AUDITED OPPORTUNITIES</span>
           </div>
 
-          {/* View Mode Switcher */}
-          <div className="flex items-center bg-white border border-[#E6DFD3] p-0.5 rounded-none font-code text-xs shadow-xs">
+          {/* View Mode Switcher (Clean segmented buttons) */}
+          <div className="flex items-center bg-[#EFE9E0] p-0.5 rounded-xs font-code text-xs">
             <button
               onClick={() => setViewMode('dossier')}
-              className={`px-3 py-1 flex items-center gap-1.5 transition-colors cursor-pointer rounded-xs ${
-                viewMode === 'dossier' ? 'bg-[#D92626] text-white font-bold' : 'text-[#6A635B] hover:text-[#161412]'
+              className={`px-3 py-1.5 flex items-center gap-1.5 transition-colors cursor-pointer rounded-xs ${
+                viewMode === 'dossier' ? 'bg-[#0E0D11] text-white font-bold' : 'text-[#5E5953] hover:text-[#0E0D11]'
               }`}
               title="Curated Dossier Grid"
             >
@@ -150,8 +145,8 @@ export const ScholarshipsPage: React.FC<ScholarshipsPageProps> = ({
 
             <button
               onClick={() => setViewMode('ledger')}
-              className={`px-3 py-1 flex items-center gap-1.5 transition-colors cursor-pointer rounded-xs ${
-                viewMode === 'ledger' ? 'bg-[#D92626] text-white font-bold' : 'text-[#6A635B] hover:text-[#161412]'
+              className={`px-3 py-1.5 flex items-center gap-1.5 transition-colors cursor-pointer rounded-xs ${
+                viewMode === 'ledger' ? 'bg-[#0E0D11] text-white font-bold' : 'text-[#5E5953] hover:text-[#0E0D11]'
               }`}
               title="Editorial Table Ledger"
             >
@@ -161,8 +156,8 @@ export const ScholarshipsPage: React.FC<ScholarshipsPageProps> = ({
 
             <button
               onClick={() => setViewMode('regional')}
-              className={`px-3 py-1 flex items-center gap-1.5 transition-colors cursor-pointer rounded-xs ${
-                viewMode === 'regional' ? 'bg-[#D92626] text-white font-bold' : 'text-[#6A635B] hover:text-[#161412]'
+              className={`px-3 py-1.5 flex items-center gap-1.5 transition-colors cursor-pointer rounded-xs ${
+                viewMode === 'regional' ? 'bg-[#0E0D11] text-white font-bold' : 'text-[#5E5953] hover:text-[#0E0D11]'
               }`}
               title="Geographic Clusters"
             >
@@ -172,19 +167,19 @@ export const ScholarshipsPage: React.FC<ScholarshipsPageProps> = ({
           </div>
         </div>
 
-        <h1 className="font-editorial text-4xl sm:text-6xl font-normal italic leading-[0.95] text-[#161412] tracking-tight">
+        <h1 className="font-editorial text-4xl sm:text-6xl font-normal italic leading-[0.95] text-[#0E0D11] tracking-tight">
           Curated Educational Opportunities
         </h1>
 
-        <p className="text-xs sm:text-sm text-[#524B43] max-w-2xl leading-relaxed font-sans">
+        <p className="text-sm text-[#4A4643] max-w-2xl leading-relaxed font-sans">
           Every scholarship listed below has been verified against institutional websites, primary statutes, or official foundation charters. No invented leads, zero application fees.
         </p>
       </div>
 
       {/* 2. Interactive Filter Bar & Quick Category Buttons */}
-      <div className="space-y-3">
+      <div className="space-y-3 font-sans">
         {/* Quick Category Buttons for Instant Toggling */}
-        <div className="flex flex-wrap items-center gap-2 font-code text-xs">
+        <div className="flex flex-wrap items-center gap-2 text-xs">
           <button
             onClick={() => {
               setOnlyAfricanPriority(!onlyAfricanPriority);
@@ -192,44 +187,44 @@ export const ScholarshipsPage: React.FC<ScholarshipsPageProps> = ({
             }}
             className={`px-3 py-1.5 border transition-all cursor-pointer flex items-center gap-1.5 rounded-xs ${
               onlyAfricanPriority 
-                ? 'bg-[#D92626] text-white border-[#D92626] font-bold shadow-xs' 
-                : 'bg-white text-[#524B43] border-[#E6DFD3] hover:border-[#161412]'
+                ? 'bg-[#0E0D11] text-white border-[#0E0D11] font-bold shadow-xs' 
+                : 'bg-white text-[#5E5953] border-[#E5DFD5] hover:border-[#0E0D11]'
             }`}
           >
             <span>Pan-African Flagships (ALU, Ashesi, UCT)</span>
-            {onlyAfricanPriority && <X className="w-3 h-3" />}
+            {onlyAfricanPriority && <X className="w-3 h-3 text-amber-400" />}
           </button>
 
           <button
             onClick={() => setOnlyGirlsPriority(!onlyGirlsPriority)}
             className={`px-3 py-1.5 border transition-all cursor-pointer flex items-center gap-1.5 rounded-xs ${
               onlyGirlsPriority 
-                ? 'bg-rose-700 text-white border-rose-700 font-bold shadow-xs' 
-                : 'bg-white text-[#524B43] border-[#E6DFD3] hover:border-rose-400'
+                ? 'bg-[#0E0D11] text-amber-300 border-[#0E0D11] font-bold shadow-xs' 
+                : 'bg-white text-[#5E5953] border-[#E5DFD5] hover:border-amber-500'
             }`}
           >
-            <Heart className="w-3 h-3 fill-rose-600 text-rose-600 inline" />
-            <span>For Young Women</span>
-            {onlyGirlsPriority && <X className="w-3 h-3" />}
+            <Heart className="w-3 h-3 fill-amber-500 text-amber-500 inline" />
+            <span>For Young Women Priority</span>
+            {onlyGirlsPriority && <X className="w-3 h-3 text-amber-400" />}
           </button>
 
           <button
             onClick={() => setSelectedFunding(selectedFunding === 'Fully funded' ? 'All Funding Types' : 'Fully funded')}
             className={`px-3 py-1.5 border transition-all cursor-pointer flex items-center gap-1.5 rounded-xs ${
               selectedFunding === 'Fully funded' 
-                ? 'bg-emerald-800 text-white border-emerald-800 font-bold shadow-xs' 
-                : 'bg-white text-[#524B43] border-[#E6DFD3] hover:border-emerald-600'
+                ? 'bg-emerald-900 text-white border-emerald-900 font-bold shadow-xs' 
+                : 'bg-white text-[#5E5953] border-[#E5DFD5] hover:border-emerald-600'
             }`}
           >
             <ShieldCheck className="w-3 h-3 text-emerald-600" />
-            <span>100% Fully Funded</span>
+            <span>100% Fully Funded Only</span>
             {selectedFunding === 'Fully funded' && <X className="w-3 h-3" />}
           </button>
 
           {activeFiltersCount > 0 && (
             <button
               onClick={handleResetFilters}
-              className="px-2.5 py-1 text-[#6A635B] hover:text-[#D92626] transition-colors flex items-center gap-1 text-[11px] font-bold"
+              className="px-2.5 py-1 text-[#5E5953] hover:text-[#D97706] transition-colors flex items-center gap-1 text-xs font-bold"
             >
               <RotateCcw className="w-3 h-3" />
               <span>Reset Filters</span>
@@ -238,22 +233,22 @@ export const ScholarshipsPage: React.FC<ScholarshipsPageProps> = ({
         </div>
 
         {/* Detailed Controls: Search Input & Dropdowns */}
-        <div className="p-4 bg-white border border-[#E6DFD3] space-y-3 shadow-xs">
+        <div className="p-4 bg-white border border-[#E5DFD5] space-y-3 shadow-xs">
           <div className="flex flex-col md:flex-row items-center gap-3">
             {/* Search Input */}
             <div className="relative flex-1 w-full">
-              <Search className="w-4 h-4 text-[#9E9589] absolute left-3 top-1/2 -translate-y-1/2" />
+              <Search className="w-4 h-4 text-[#8A847C] absolute left-3 top-1/2 -translate-y-1/2" />
               <input
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Filter by scholarship name, university host, provider, or country..."
-                className="w-full bg-[#FAF7F2] border border-[#E6DFD3] pl-9 pr-8 py-2 text-xs sm:text-sm text-[#161412] placeholder-[#9E9589] focus:border-[#D92626] outline-hidden font-sans"
+                className="w-full bg-[#FAF8F5] border border-[#E5DFD5] pl-9 pr-8 py-2 text-xs sm:text-sm text-[#0E0D11] placeholder-[#8A847C] focus:border-[#D97706] outline-hidden font-sans"
               />
               {searchQuery && (
                 <button
                   onClick={() => setSearchQuery('')}
-                  className="absolute right-2.5 top-1/2 -translate-y-1/2 text-[#9E9589] hover:text-[#161412]"
+                  className="absolute right-2.5 top-1/2 -translate-y-1/2 text-[#8A847C] hover:text-[#0E0D11]"
                 >
                   <X className="w-3.5 h-3.5" />
                 </button>
@@ -268,7 +263,7 @@ export const ScholarshipsPage: React.FC<ScholarshipsPageProps> = ({
                   setSelectedRegion(e.target.value);
                   if (e.target.value !== 'Africa') setOnlyAfricanPriority(false);
                 }}
-                className="w-full bg-[#FAF7F2] border border-[#E6DFD3] px-3 py-2 text-xs text-[#161412] focus:border-[#D92626] outline-hidden font-code"
+                className="w-full bg-[#FAF8F5] border border-[#E5DFD5] px-3 py-2 text-xs text-[#0E0D11] focus:border-[#D97706] outline-hidden font-sans"
               >
                 <option value="All Regions">All Regions</option>
                 {REGIONS_LIST.map((reg) => (
@@ -282,7 +277,7 @@ export const ScholarshipsPage: React.FC<ScholarshipsPageProps> = ({
               <select
                 value={selectedFunding}
                 onChange={(e) => setSelectedFunding(e.target.value)}
-                className="w-full bg-[#FAF7F2] border border-[#E6DFD3] px-3 py-2 text-xs text-[#161412] focus:border-[#D92626] outline-hidden font-code"
+                className="w-full bg-[#FAF8F5] border border-[#E5DFD5] px-3 py-2 text-xs text-[#0E0D11] focus:border-[#D97706] outline-hidden font-sans"
               >
                 <option value="All Funding Types">All Funding Types</option>
                 {FUNDING_CLASSIFICATIONS_LIST.map((f) => (
@@ -296,22 +291,22 @@ export const ScholarshipsPage: React.FC<ScholarshipsPageProps> = ({
               <select
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value as any)}
-                className="w-full bg-[#FAF7F2] border border-[#E6DFD3] px-3 py-2 text-xs text-[#161412] focus:border-[#D92626] outline-hidden font-code"
+                className="w-full bg-[#FAF8F5] border border-[#E5DFD5] px-3 py-2 text-xs text-[#0E0D11] focus:border-[#D97706] outline-hidden font-sans"
               >
-                <option value="number">Sort: # Record ID</option>
+                <option value="number">Sort: # ID</option>
                 <option value="alpha">Sort: A → Z Name</option>
-                <option value="region">Sort: By Region</option>
+                <option value="region">Sort: Region</option>
               </select>
             </div>
           </div>
 
-          {/* Results Count & Status Pill */}
-          <div className="flex items-center justify-between text-[11px] font-code text-[#6A635B] pt-1">
+          {/* Results Count & Inspection Hint */}
+          <div className="flex items-center justify-between text-xs font-sans text-[#5E5953] pt-1">
             <div>
-              Showing <span className="text-[#161412] font-bold">{filteredScholarships.length}</span> of {SCHOLARSHIPS_CATALOGUE.length} audited opportunities
+              Showing <span className="text-[#0E0D11] font-bold tabular-nums">{filteredScholarships.length}</span> of {SCHOLARSHIPS_CATALOGUE.length} audited opportunities
             </div>
-            <div className="text-[#7A7167] hidden sm:block">
-              Hover over any item to inspect in right pane
+            <div className="text-[#716D66] hidden sm:block font-code text-[11px]">
+              Hover or click any opportunity to view comprehensive audit record
             </div>
           </div>
         </div>
@@ -319,11 +314,11 @@ export const ScholarshipsPage: React.FC<ScholarshipsPageProps> = ({
 
       {/* 3. Empty State */}
       {filteredScholarships.length === 0 && (
-        <div className="py-16 text-center border border-[#E6DFD3] bg-white space-y-3 font-code shadow-xs">
-          <div className="text-[#6A635B] text-sm">No audited records match your active criteria.</div>
+        <div className="py-16 text-center border border-[#E5DFD5] bg-white space-y-3 font-sans shadow-xs">
+          <div className="text-[#5E5953] text-sm">No audited records match your active criteria.</div>
           <button
             onClick={handleResetFilters}
-            className="px-4 py-2 bg-[#D92626] hover:bg-[#B91C1C] text-white text-xs uppercase tracking-wider font-bold cursor-pointer"
+            className="px-4 py-2 bg-[#0E0D11] hover:bg-[#25232B] text-white text-xs uppercase tracking-wider font-bold cursor-pointer rounded-xs"
           >
             Reset All Filters
           </button>
@@ -349,9 +344,9 @@ export const ScholarshipsPage: React.FC<ScholarshipsPageProps> = ({
 
       {/* 5. VIEW MODE 2: LEDGER TABLE */}
       {viewMode === 'ledger' && filteredScholarships.length > 0 && (
-        <div className="border border-[#E6DFD3] bg-white overflow-x-auto shadow-xs">
-          <table className="w-full text-left font-code text-xs">
-            <thead className="bg-[#F3EFE6] border-b border-[#E6DFD3] text-[#6A635B] uppercase tracking-wider text-[10px]">
+        <div className="border border-[#E5DFD5] bg-white overflow-x-auto shadow-xs">
+          <table className="w-full text-left font-sans text-xs">
+            <thead className="bg-[#FAF8F5] border-b border-[#E5DFD5] text-[#5E5953] uppercase tracking-wider font-code text-[10px]">
               <tr>
                 <th className="py-3 px-4 w-12 font-bold">#</th>
                 <th className="py-3 px-4 font-bold">Opportunity & Provider</th>
@@ -361,7 +356,7 @@ export const ScholarshipsPage: React.FC<ScholarshipsPageProps> = ({
                 <th className="py-3 px-4 text-right font-bold">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-[#E6DFD3] font-sans">
+            <tbody className="divide-y divide-[#E5DFD5] font-sans">
               {filteredScholarships.map((item) => {
                 const isSaved = savedIds.includes(item.id);
                 return (
@@ -369,40 +364,40 @@ export const ScholarshipsPage: React.FC<ScholarshipsPageProps> = ({
                     key={item.id}
                     onMouseEnter={() => onHoverScholarship && onHoverScholarship(item)}
                     onClick={() => onSelectScholarship(item)}
-                    className="hover:bg-[#FAF7F2] transition-colors cursor-pointer group"
+                    className="hover:bg-[#FAF8F5] transition-colors cursor-pointer group"
                   >
-                    <td className="py-3 px-4 font-code text-[#D92626] font-bold">
+                    <td className="py-3 px-4 font-code text-[#D97706] font-bold tabular-nums">
                       #{String(item.itemNumber).padStart(2, '0')}
                     </td>
                     <td className="py-3 px-4">
-                      <div className="font-editorial text-lg text-[#161412] font-semibold group-hover:text-[#D92626] transition-colors">
+                      <div className="font-editorial text-lg text-[#0E0D11] font-semibold group-hover:text-[#D97706] transition-colors">
                         {item.name}
                       </div>
-                      <div className="font-code text-[10px] text-[#6A635B]">
+                      <div className="font-sans text-xs text-[#5E5953]">
                         {item.provider} {item.institution ? `· Host: ${item.institution}` : ''}
                       </div>
                     </td>
-                    <td className="py-3 px-4 font-code text-[#524B43] whitespace-nowrap font-medium">
+                    <td className="py-3 px-4 font-sans text-[#4A4643] whitespace-nowrap font-medium">
                       {item.country}
                     </td>
-                    <td className="py-3 px-4 font-code">
-                      <span className={`px-2 py-0.5 text-[10px] rounded-xs ${
+                    <td className="py-3 px-4">
+                      <span className={`px-2 py-0.5 text-[11px] rounded-xs font-sans ${
                         item.fundingClassification === 'Fully funded'
-                          ? 'bg-emerald-50 text-emerald-800 border border-emerald-200 font-bold'
-                          : 'bg-[#F3EFE6] text-[#524B43]'
+                          ? 'bg-amber-50 text-amber-900 border border-amber-200 font-semibold'
+                          : 'bg-[#F3EFEA] text-[#4A4643]'
                       }`}>
                         {item.fundingClassification}
                       </span>
                     </td>
-                    <td className="py-3 px-4 font-code text-[11px] text-[#6A635B] whitespace-nowrap">
+                    <td className="py-3 px-4 font-code text-xs text-[#5E5953] whitespace-nowrap tabular-nums">
                       {item.deadline}
                     </td>
-                    <td className="py-3 px-4 text-right font-code">
+                    <td className="py-3 px-4 text-right">
                       <div className="flex items-center justify-end gap-2" onClick={(e) => e.stopPropagation()}>
                         <button
                           onClick={() => onToggleSave(item.id)}
                           className={`p-1.5 transition-colors cursor-pointer rounded-xs ${
-                            isSaved ? 'text-red-600 bg-red-50' : 'text-[#9E9589] hover:text-[#161412]'
+                            isSaved ? 'text-amber-700 bg-amber-50' : 'text-[#8A847C] hover:text-[#0E0D11]'
                           }`}
                           title={isSaved ? 'Saved' : 'Save'}
                         >
@@ -410,7 +405,7 @@ export const ScholarshipsPage: React.FC<ScholarshipsPageProps> = ({
                         </button>
                         <button
                           onClick={() => onSelectScholarship(item)}
-                          className="px-2.5 py-1 bg-[#D92626] hover:bg-[#B91C1C] text-white text-[10px] uppercase font-bold cursor-pointer rounded-xs shadow-xs"
+                          className="px-2.5 py-1 bg-[#0E0D11] hover:bg-[#25232B] text-white text-[11px] uppercase font-bold cursor-pointer rounded-xs shadow-xs"
                         >
                           Audit
                         </button>
@@ -429,14 +424,14 @@ export const ScholarshipsPage: React.FC<ScholarshipsPageProps> = ({
         <div className="space-y-12">
           {Object.entries(regionalGroups).map(([regionName, items]) => (
             <section key={regionName} className="space-y-4">
-              <div className="flex items-center justify-between pb-2 border-b border-[#E6DFD3]">
+              <div className="flex items-center justify-between pb-2 border-b border-[#E5DFD5]">
                 <div className="flex items-center gap-2">
-                  <span className="w-2.5 h-2.5 bg-[#D92626] rounded-none" />
-                  <h2 className="font-editorial text-3xl font-bold text-[#161412]">
+                  <span className="w-2.5 h-2.5 bg-[#D97706] rounded-xs" />
+                  <h2 className="font-editorial text-3xl font-bold text-[#0E0D11]">
                     {regionName} ({items.length} Programs)
                   </h2>
                 </div>
-                <span className="font-code text-xs text-[#7A7167]">Verified Region Cluster</span>
+                <span className="font-code text-xs text-[#716D66]">Verified Region Cluster</span>
               </div>
 
               <div className="grid md:grid-cols-2 gap-6">
@@ -448,7 +443,6 @@ export const ScholarshipsPage: React.FC<ScholarshipsPageProps> = ({
                     onHover={onHoverScholarship}
                     isSaved={savedIds.includes(scholarship.id)}
                     onToggleSave={onToggleSave}
-                    showThumbnail={scholarship.itemNumber <= 4}
                   />
                 ))}
               </div>
